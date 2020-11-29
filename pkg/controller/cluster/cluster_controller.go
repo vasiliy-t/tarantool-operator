@@ -340,7 +340,7 @@ func (r *ReconcileCluster) Reconcile(request reconcile.Request) (reconcile.Resul
 
 	for _, sts := range stsList.Items {
 		stsAnnotations := sts.GetAnnotations()
-		weight, _ := stsAnnotations["tarantool.io/replicaset-weight"]
+		weight := stsAnnotations["tarantool.io/replicaset-weight"]
 
 		if weight == "0" {
 			reqLogger.Info("weight is set to 0, checking replicaset buckets for scheduled deletion")
@@ -384,7 +384,7 @@ func (r *ReconcileCluster) Reconcile(request reconcile.Request) (reconcile.Resul
 				return reconcile.Result{RequeueAfter: time.Duration(5 * time.Second)}, err
 			}
 
-			if tarantool.IsJoined(pod) == false {
+			if !tarantool.IsJoined(pod) {
 				reqLogger.Info("Not all instances joined, skip weight change", "StatefulSet.Name", sts.GetName())
 				return reconcile.Result{RequeueAfter: time.Duration(5 * time.Second)}, nil
 			}
