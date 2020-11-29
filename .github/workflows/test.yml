@@ -11,7 +11,7 @@ jobs:
       - name: lint
         uses: golangci/golangci-lint-action@v2
 
-  build:
+  unit_testing:
     name: Build
     runs-on: ubuntu-latest
     needs: lint
@@ -29,3 +29,6 @@ jobs:
 
     - name: Install modules
       run: go mod download
+
+    - name: Test
+      run: go test ./pkg/...
