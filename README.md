@@ -3,6 +3,7 @@
 align="right">
 </a>
 
+
 # Tarantool Kubernetes operator
 
 [![Test][gh-actions-badge]][gh-actions-url]
