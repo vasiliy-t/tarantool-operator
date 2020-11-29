@@ -101,6 +101,9 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 			return res
 		}),
 	})
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -137,7 +140,7 @@ func (r *ReconcileRole) Reconcile(request reconcile.Request) (reconcile.Result, 
 	}
 
 	if len(role.GetOwnerReferences()) == 0 {
-		return reconcile.Result{}, goerrors.New(fmt.Sprintf("Orphan role %s", role.GetName()))
+		return reconcile.Result{}, fmt.Errorf("Orphan role %s", role.GetName())
 	}
 
 	templateSelector, err := metav1.LabelSelectorAsSelector(role.Spec.Selector)
