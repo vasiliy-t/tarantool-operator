@@ -421,7 +421,10 @@ func (r *ReconcileCluster) Reconcile(request reconcile.Request) (reconcile.Resul
 					reqLogger.Info("Added bootstrapped annotation", "StatefulSet.Name", sts.GetName())
 
 					cluster.Status.State = "Ready"
-					r.client.Status().Update(context.TODO(), cluster)
+					err = r.client.Status().Update(context.TODO(), cluster)
+					if err != nil {
+						return reconcile.Result{RequeueAfter: time.Duration(5 * time.Second)}, err
+					}
 					return reconcile.Result{RequeueAfter: time.Duration(5 * time.Second)}, nil
 				}
 
