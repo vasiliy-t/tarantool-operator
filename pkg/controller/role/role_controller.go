@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	goerrors "errors"
-
 	"github.com/google/uuid"
 	tarantoolv1alpha1 "github.com/tarantool/tarantool-operator/pkg/apis/tarantool/v1alpha1"
 	appsv1 "k8s.io/api/apps/v1"
@@ -196,7 +194,7 @@ func (r *ReconcileRole) Reconcile(request reconcile.Request) (reconcile.Result, 
 	}
 
 	if len(templateList.Items) == 0 {
-		return reconcile.Result{}, goerrors.New("no template")
+		return reconcile.Result{}, fmt.Errorf("no template")
 	}
 
 	template := templateList.Items[0]
