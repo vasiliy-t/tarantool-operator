@@ -53,10 +53,6 @@ type BootstrapVshardResponse struct {
 	Errors []*ResponseError     `json:"errors,omitempty"`
 }
 
-// FailoverData Structure of data for changing failover status
-type FailoverData struct {
-}
-
 // FailoverParams returns the mode of failover which has been enabled
 type FailoverParams struct {
 }
